@@ -47,6 +47,27 @@
             </a>
         </li>
     @endforeach
+    <li class="nav-02__item" style="color:white">
+
+        <div class="buttons-set">
+            <ul class="buttons-set__list">
+                <li class="buttons-set__item">
+                    <a class="button   button--white-outline  button--empty"
+                    href="{{ route('logout') }}"
+                    onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">
+                    <span class="button__text">Salir</span>
+                    </a>
+                    <form id="logout-form"
+                    action="{{ route('logout') }}"
+                    method="POST"
+                    style="display: none;">
+                    @csrf
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </li>
 
     {{-- @foreach($items as $item)
 

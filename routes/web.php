@@ -31,7 +31,12 @@ Route::get('/validar_code','AuthController@validar')->name('validar_code');
 Route::post('/loginV','AuthController@login')->name('loginV');
 
 
-// Auth::routes(['verify' => true]);
+//PUBLICACIONES
+Route::get('/subir_publicacion','UserContentController@index')->name('subir_publicacion');
+Route::post('/upload_publicacion','UserContentController@store')->name('upload_publicacion');
+
+
+//Auth::routes(['verify' => true]);
 
 
 Route::group(['middleware' => 'auth'], function () {

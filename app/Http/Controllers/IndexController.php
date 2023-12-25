@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\HomeContent;
 use App\Models\HomeValore;
 
+use App\Models\UserContent;
+
 class IndexController extends Controller
 {
     public function index(){
@@ -21,7 +23,9 @@ class IndexController extends Controller
         if (!auth()->id()){
             return redirect()->route('index');
         } else {
-            return view('home');
+            $publicaciones = UserContent::all();
+
+            return view('home', compact("publicaciones"));
         }
     }
 }

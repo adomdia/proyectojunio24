@@ -1,0 +1,25 @@
+.title-card-home {
+    display: flex;
+    align-items: center;
+    margin: 20px 0 0 20px;
+}
+
+.title-comment-home {
+    display: flex;
+    align-items: center;
+    margin: 20px 0 0 20px;
+}
+
+.comment-div {
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, .125);
+    border-radius: .25rem;
+}
+
+.media-body{
+    margin: 20px;
+}
+
+.media-body > p{
+    margin: 20px;
+}

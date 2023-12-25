@@ -5,7 +5,7 @@
 @section('content')
 
 
-<div class="container mt-4" style="padding-top: 10vh">
+<div class="container mt-4" style="padding-top: 15vh">
     <div class="row">
         <div class="col-md-6 offset-md-3">
             <!-- Input para buscar usuarios -->
@@ -18,148 +18,37 @@
         </div>
     </div>
 
-    <!-- Publicaciones con scroll vertical -->
     <div class="row">
         <div class="col-md-6 offset-md-3">
-            <div class="card mb-3">
-                <img src="{{asset('images/user.png')}}" class="card-img-top" alt="Imagen de usuario">
-                <div class="card-body">
-                    <h5 class="card-title">Nombre de Usuario</h5>
-                    <p class="card-text">Título de la imagen</p>
-                    <img src="{{asset('images/paisaje.webp')}}" class="img-fluid" alt="Imagen de publicación">
-                    <button class="btn btn-primary mt-3">Like</button>
-                    <!-- Comentarios -->
-                    <div class="mt-3">
-                        <h6>Comentarios:</h6>
-                        <!-- Aquí puedes iterar sobre los comentarios y mostrarlos -->
-                        <div class="media mb-2">
-                            <img src="{{asset('images/user.png')}}" class="mr-3" alt="Imagen de usuario">
-                            <div class="media-body">
-                                <h6 class="mt-0">Usuario Comentario</h6>
-                                Comentario de ejemplo.
-                            </div>
-                        </div>
-                        <!-- Input para comentar -->
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Escribe un comentario" aria-describedby="button-addon3">
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" type="button" id="button-addon3">Comentar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Repite esta estructura para cada publicación -->
+            @foreach($publicaciones as $publicacion)
 
-            <div class="card mb-3">
-                <img src="{{asset('images/user.png')}}" class="card-img-top" alt="Imagen de usuario">
-                <div class="card-body">
-                    <h5 class="card-title">Nombre de Usuario</h5>
-                    <p class="card-text">Título de la imagen</p>
-                    <img src="{{asset('images/paisaje.webp')}}" class="img-fluid" alt="Imagen de publicación">
-                    <button class="btn btn-primary mt-3">Like</button>
-                    <!-- Comentarios -->
-                    <div class="mt-3">
-                        <h6>Comentarios:</h6>
-                        <!-- Aquí puedes iterar sobre los comentarios y mostrarlos -->
-                        <div class="media mb-2">
-                            <img src="{{asset('images/user.png')}}" class="mr-3" alt="Imagen de usuario">
-                            <div class="media-body">
-                                <h6 class="mt-0">Usuario Comentario</h6>
-                                Comentario de ejemplo.
-                            </div>
-                        </div>
-                        <!-- Input para comentar -->
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Escribe un comentario" aria-describedby="button-addon3">
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" type="button" id="button-addon3">Comentar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Repite esta estructura para cada publicación -->
 
-            <div class="card mb-3">
-                <img src="{{asset('images/user.png')}}" class="card-img-top" alt="Imagen de usuario">
-                <div class="card-body">
-                    <h5 class="card-title">Nombre de Usuario</h5>
-                    <p class="card-text">Título de la imagen</p>
-                    <img src="{{asset('images/paisaje.webp')}}" class="img-fluid" alt="Imagen de publicación">
-                    <button class="btn btn-primary mt-3">Like</button>
-                    <!-- Comentarios -->
-                    <div class="mt-3">
-                        <h6>Comentarios:</h6>
-                        <!-- Aquí puedes iterar sobre los comentarios y mostrarlos -->
-                        <div class="media mb-2">
-                            <img src="{{asset('images/user.png')}}" class="mr-3" alt="Imagen de usuario">
-                            <div class="media-body">
-                                <h6 class="mt-0">Usuario Comentario</h6>
-                                Comentario de ejemplo.
-                            </div>
-                        </div>
-                        <!-- Input para comentar -->
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Escribe un comentario" aria-describedby="button-addon3">
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" type="button" id="button-addon3">Comentar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Repite esta estructura para cada publicación -->
+            @php
+            
+            $uploader = App\Models\User::get()->where('id', $publicacion->user_id)->first();
 
-            <div class="card mb-3">
-                <img src="{{asset('images/user.png')}}" class="card-img-top" alt="Imagen de usuario">
-                <div class="card-body">
-                    <h5 class="card-title">Nombre de Usuario</h5>
-                    <p class="card-text">Título de la imagen</p>
-                    <img src="{{asset('images/paisaje.webp')}}" class="img-fluid" alt="Imagen de publicación">
-                    <button class="btn btn-primary mt-3">Like</button>
-                    <!-- Comentarios -->
-                    <div class="mt-3">
-                        <h6>Comentarios:</h6>
-                        <!-- Aquí puedes iterar sobre los comentarios y mostrarlos -->
-                        <div class="media mb-2">
-                            <img src="{{asset('images/user.png')}}" class="mr-3" alt="Imagen de usuario">
-                            <div class="media-body">
-                                <h6 class="mt-0">Usuario Comentario</h6>
-                                Comentario de ejemplo.
-                            </div>
-                        </div>
-                        <!-- Input para comentar -->
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Escribe un comentario" aria-describedby="button-addon3">
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" type="button" id="button-addon3">Comentar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Repite esta estructura para cada publicación -->
+            // dd($uploader->avatar);
 
+            @endphp
             <div class="card mb-3">
-                <img src="{{asset('images/user.png')}}" class="card-img-top" alt="Imagen de usuario">
+                <div class="title-card-home" >
+                    <img src="{{Voyager::image($uploader->avatar)}}" style="max-width:50px" class="card-img-top" alt="Imagen de usuario">
+                    <h5 class="card-title" style="color:black;  margin:0 0 0 20px">{{$uploader->name}}</h5>
+                </div>
                 <div class="card-body">
-                    <h5 class="card-title">Nombre de Usuario</h5>
-                    <p class="card-text">Título de la imagen</p>
-                    <img src="{{asset('images/paisaje.webp')}}" class="img-fluid" alt="Imagen de publicación">
-                    <button class="btn btn-primary mt-3">Like</button>
-                    <!-- Comentarios -->
+                    <p class="card-text">{{$publicacion->title}}</p>
+                    <img src="{{Voyager::image(json_decode($publicacion->file)[0]->download_link)}}" class="img-fluid" alt="Imagen de publicación">
                     <div class="mt-3">
                         <h6>Comentarios:</h6>
-                        <!-- Aquí puedes iterar sobre los comentarios y mostrarlos -->
-                        <div class="media mb-2">
-                            <img src="{{asset('images/user.png')}}" class="mr-3" alt="Imagen de usuario">
-                            <div class="media-body">
-                                <h6 class="mt-0">Usuario Comentario</h6>
-                                Comentario de ejemplo.
+                        <div class="media mb-2 comment-div">
+                            <div class="title-comment-home">
+                                <img src="{{asset('images/user.png')}}" style="max-width:50px" class="card-img-top" alt="Imagen de usuario">
+                                <h6 class="mt-0" style="color:black; margin:20px 0 0 20px"><strong>Nombre de Usuario:</strong></h6>
+                            </div>
+                            <div class="media-body comment-div">
+                                <p>Comentario de ejemplo. </p>
                             </div>
                         </div>
-                        <!-- Input para comentar -->
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Escribe un comentario" aria-describedby="button-addon3">
                             <div class="input-group-append">
@@ -169,157 +58,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Repite esta estructura para cada publicación -->
-
-            <div class="card mb-3">
-                <img src="{{asset('images/user.png')}}" class="card-img-top" alt="Imagen de usuario">
-                <div class="card-body">
-                    <h5 class="card-title">Nombre de Usuario</h5>
-                    <p class="card-text">Título de la imagen</p>
-                    <img src="{{asset('images/paisaje.webp')}}" class="img-fluid" alt="Imagen de publicación">
-                    <button class="btn btn-primary mt-3">Like</button>
-                    <!-- Comentarios -->
-                    <div class="mt-3">
-                        <h6>Comentarios:</h6>
-                        <!-- Aquí puedes iterar sobre los comentarios y mostrarlos -->
-                        <div class="media mb-2">
-                            <img src="{{asset('images/user.png')}}" class="mr-3" alt="Imagen de usuario">
-                            <div class="media-body">
-                                <h6 class="mt-0">Usuario Comentario</h6>
-                                Comentario de ejemplo.
-                            </div>
-                        </div>
-                        <!-- Input para comentar -->
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Escribe un comentario" aria-describedby="button-addon3">
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" type="button" id="button-addon3">Comentar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Repite esta estructura para cada publicación -->
-
-            <div class="card mb-3">
-                <img src="{{asset('images/user.png')}}" class="card-img-top" alt="Imagen de usuario">
-                <div class="card-body">
-                    <h5 class="card-title">Nombre de Usuario</h5>
-                    <p class="card-text">Título de la imagen</p>
-                    <img src="{{asset('images/paisaje.webp')}}" class="img-fluid" alt="Imagen de publicación">
-                    <button class="btn btn-primary mt-3">Like</button>
-                    <!-- Comentarios -->
-                    <div class="mt-3">
-                        <h6>Comentarios:</h6>
-                        <!-- Aquí puedes iterar sobre los comentarios y mostrarlos -->
-                        <div class="media mb-2">
-                            <img src="{{asset('images/user.png')}}" class="mr-3" alt="Imagen de usuario">
-                            <div class="media-body">
-                                <h6 class="mt-0">Usuario Comentario</h6>
-                                Comentario de ejemplo.
-                            </div>
-                        </div>
-                        <!-- Input para comentar -->
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Escribe un comentario" aria-describedby="button-addon3">
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" type="button" id="button-addon3">Comentar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Repite esta estructura para cada publicación -->
-
-            <div class="card mb-3">
-                <img src="{{asset('images/user.png')}}" class="card-img-top" alt="Imagen de usuario">
-                <div class="card-body">
-                    <h5 class="card-title">Nombre de Usuario</h5>
-                    <p class="card-text">Título de la imagen</p>
-                    <img src="{{asset('images/paisaje.webp')}}" class="img-fluid" alt="Imagen de publicación">
-                    <button class="btn btn-primary mt-3">Like</button>
-                    <!-- Comentarios -->
-                    <div class="mt-3">
-                        <h6>Comentarios:</h6>
-                        <!-- Aquí puedes iterar sobre los comentarios y mostrarlos -->
-                        <div class="media mb-2">
-                            <img src="{{asset('images/user.png')}}" class="mr-3" alt="Imagen de usuario">
-                            <div class="media-body">
-                                <h6 class="mt-0">Usuario Comentario</h6>
-                                Comentario de ejemplo.
-                            </div>
-                        </div>
-                        <!-- Input para comentar -->
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Escribe un comentario" aria-describedby="button-addon3">
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" type="button" id="button-addon3">Comentar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Repite esta estructura para cada publicación -->
-
-            <div class="card mb-3">
-                <img src="{{asset('images/user.png')}}" class="card-img-top" alt="Imagen de usuario">
-                <div class="card-body">
-                    <h5 class="card-title">Nombre de Usuario</h5>
-                    <p class="card-text">Título de la imagen</p>
-                    <img src="{{asset('images/paisaje.webp')}}" class="img-fluid" alt="Imagen de publicación">
-                    <button class="btn btn-primary mt-3">Like</button>
-                    <!-- Comentarios -->
-                    <div class="mt-3">
-                        <h6>Comentarios:</h6>
-                        <!-- Aquí puedes iterar sobre los comentarios y mostrarlos -->
-                        <div class="media mb-2">
-                            <img src="{{asset('images/user.png')}}" class="mr-3" alt="Imagen de usuario">
-                            <div class="media-body">
-                                <h6 class="mt-0">Usuario Comentario</h6>
-                                Comentario de ejemplo.
-                            </div>
-                        </div>
-                        <!-- Input para comentar -->
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Escribe un comentario" aria-describedby="button-addon3">
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" type="button" id="button-addon3">Comentar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Repite esta estructura para cada publicación -->
-
-            <div class="card mb-3">
-                <img src="{{asset('images/user.png')}}" class="card-img-top" alt="Imagen de usuario">
-                <div class="card-body">
-                    <h5 class="card-title">Nombre de Usuario</h5>
-                    <p class="card-text">Título de la imagen</p>
-                    <img src="{{asset('images/paisaje.webp')}}" class="img-fluid" alt="Imagen de publicación">
-                    <button class="btn btn-primary mt-3">Like</button>
-                    <!-- Comentarios -->
-                    <div class="mt-3">
-                        <h6>Comentarios:</h6>
-                        <!-- Aquí puedes iterar sobre los comentarios y mostrarlos -->
-                        <div class="media mb-2">
-                            <img src="{{asset('images/user.png')}}" class="mr-3" alt="Imagen de usuario">
-                            <div class="media-body">
-                                <h6 class="mt-0">Usuario Comentario</h6>
-                                Comentario de ejemplo.
-                            </div>
-                        </div>
-                        <!-- Input para comentar -->
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Escribe un comentario" aria-describedby="button-addon3">
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" type="button" id="button-addon3">Comentar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Repite esta estructura para cada publicación -->
+            @endforeach
         </div>
     </div>
 </div>
