@@ -8,24 +8,39 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
+
+use App\Models\UserContent;
 
 class UserController extends Controller
 {
     public function showProfile()
     {
         $user = Auth()->user();
-        return view('edit_user', compact('user'));
+        $publicaciones = UserContent::orderBy('created_at', 'desc')->get()->where('user_id', $user->id);
+        return view('perfil', compact('user', 'publicaciones'));
+    }
+
+    public function showGuestProfile($id)
+    {
+        $user = User::get()->where('id', $id)->first();
+        $publicaciones = UserContent::orderBy('created_at', 'desc')->get()->where('user_id', $user->id);
+        return view('perfil', compact('user', 'publicaciones'));
+    }
+
+    public function editProfile()
+    {
+        $user = Auth()->user();
+        return view('edit_perfil', compact('user'));
     }
 
     public function updateProfile(Request $request)
     {
-
+        // dd($request);
         $validator = Validator::make($request->all(), [
-            'avatar' => 'nullable|image|max:2000',
-            'name_lastname' => 'required|string|max:155',
-            'telefono' => 'nullable|numeric',
-            'email' => 'required|string|email|max:255|unique:users,email,'.Auth::id(),
+            'nick' => 'string|max:155',
+            'email' => 'nullable|string|email|max:255|unique:users,email,'.Auth::id(),
             'password' => 'nullable|max:255|confirmed',
         ]);
         if ($validator->fails()) {
@@ -54,10 +69,15 @@ class UserController extends Controller
                 if($request->password){
                     $myuser->password = Hash::make($request->password);
                 }
-                $myuser->name = $request->name_lastname;
-                $myuser->email = $request->email;
+                $myuser->name = $request->nick;
+                if($request->email != null){
+                    $myuser->email = $request->email; 
+                }
                 $myuser->save();
-                return response()->json(['status' => 'ok', 'message' => 'Datos actualizados con éxito.']);
+                
+
+                $user = Auth()->user();
+                return redirect()->route('user_profile')->with(compact('user'));
             }
         }
     }

@@ -31,9 +31,8 @@ Route::get('/validar_code','AuthController@validar')->name('validar_code');
 Route::post('/loginV','AuthController@login')->name('loginV');
 
 
-//PUBLICACIONES
-Route::get('/subir_publicacion','UserContentController@index')->name('subir_publicacion');
-Route::post('/upload_publicacion','UserContentController@store')->name('upload_publicacion');
+
+
 
 
 //Auth::routes(['verify' => true]);
@@ -91,3 +90,43 @@ Route::group(['prefix' => 'intranet'], function () {
     Voyager::routes();
 });
 Route::get('language/{locale}', 'LanguageController@setLocale')->where('locale','en|es')->name('language');
+
+
+//PUBLICACIONES
+Route::get('/subir_publicacion','UserContentController@index')->name('subir_publicacion');
+Route::post('/upload_publicacion','UserContentController@store')->name('upload_publicacion');
+
+//PERFIL
+Route::get('/perfil', 'UserController@showProfile')->name('user_profile');
+Route::get('/edit-perfil', 'UserController@editProfile')->name('user_edit_profile');
+Route::post('/editar-perfil', 'UserController@updateProfile')->name('edit_profile');
+Route::get('/perfil/{id}', 'UserController@showGuestProfile')->name('guest_profile');
+
+
+//USUARIOS
+Route::get('/usuarios', 'AmistadController@index')->name('users');
+Route::get('/obtener_usuarios', 'IndexController@getUsers')->name('getUsers');
+
+//AMISTAD
+Route::post('/send_solicitude', 'AmistadController@sendSolicitude')->name('send_solicitude');
+Route::post('/cancel_solicitude', 'AmistadController@cancelSolicitude')->name('cancel_solicitude');
+Route::post('/block_user', 'AmistadController@blockUser')->name('block_user');
+Route::post('/unblock_user', 'AmistadController@unblockUser')->name('unblock_user');
+Route::get('/get_friendship_status/{userId}', 'AmistadController@getFriendshipStatus');
+
+Route::get('/solicitudes', 'AmistadController@getSolicitud')->name('solicitud');
+Route::post('/rechazar_solicitud', 'AmistadController@rechazarSolicitud')->name('rechazar_solicitud');
+Route::post('/aceptar_solicitud', 'AmistadController@aceptarSolicitud')->name('aceptar_solicitud');
+Route::get('/are_friends/{userId}', 'AmistadController@areFriends')->name('are_friends');
+Route::post('/remove_friend', 'AmistadController@removeFriend')->name('remove_friend');
+
+Route::get('/amigos', 'AmistadController@show')->name('amigos');
+
+
+//CHAT
+Route::get('/chat/{user}', 'ChatController@show')->name('chat');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/chat/{userId}/messages', 'ChatController@getMessages')->name('chat.messages');
+    Route::post('/chat/{userId}/sends', 'ChatController@sendMessage')->name('chat.send');
+});
