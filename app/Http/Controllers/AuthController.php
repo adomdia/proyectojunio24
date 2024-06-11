@@ -76,6 +76,9 @@ class AuthController extends Controller
             if((Hash::check($request->password, $user->password))){
                 Auth::login($user);
                 return redirect()->route('home');
+            } else {
+                FlashHelper::warning('La contraseña no coincide con nuestra base de datos.');
+                return redirect()->route('index');
             }
         } else {
             FlashHelper::warning('El email proporcionado no tiene verificado su código de confirmación.');

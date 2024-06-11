@@ -12,6 +12,8 @@ use Illuminate\Support\Str;
 use App\Helpers\FlashHelper;
 
 use App\Models\UserContent;
+use App\Models\CommentsPostsContent;
+use App\Models\LikePostsContent;
 
 class UserContentController extends Controller
 {
@@ -29,7 +31,7 @@ class UserContentController extends Controller
         
         if ($validator->fails()) {
             FlashHelper::warning('Los datos recibidos no son válidos.');
-            return redirect()->route('subir_service');
+            return redirect()->route('subir_publicacion');
         } else {
             $user = Auth()->user();
             $imagenes = array();
@@ -60,6 +62,60 @@ class UserContentController extends Controller
             $publicacion->save();
 
             return redirect()->route('home');
+        }
+    }
+
+    public function comment(Request $request){
+        $request->validate([
+            'content' => 'required|string',
+        ]);
+
+        $user = User::where('id', auth()->id())->get()->first();
+        $comment = CommentsPostsContent::create([
+            'user_id' => auth()->id(),
+            'post_id' =>$request->post_id,
+            'text' => $request->input('content'),
+        ]);
+
+        return response()->json(['comment' => $comment, 'user' => $user]);
+    }
+
+    public function like(Request $request)
+    {
+        // return response()->json(['request' => $request->all()]);
+
+        $user = auth()->user();
+
+        
+        $existingLike = LikePostsContent::where('user_id', $user->id)
+            ->where('post_id', $request->post_id)
+            ->first();
+
+        if (!$existingLike) {
+           
+            $like = new LikePostsContent();
+            $like->user_id = $user->id;
+            $like->post_id = $request->post_id;
+            $like->save();
+
+            return response()->json(['success' => true]);
+        }
+
+    }
+
+    public function unlike(Request $request)
+    {
+
+        $user = auth()->user(); 
+
+        $like = LikePostsContent::where('user_id', $user->id)
+            ->where('post_id', $request->post_id)
+            ->first();
+
+        if ($like) {
+            $like->delete();
+
+            return response()->json(['success' => true]);
         }
     }
 }

@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class LikePostsContent extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['user_id', 'text', 'post_id'];
 }

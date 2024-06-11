@@ -8,9 +8,11 @@ use App\Models\HomeContent;
 use App\Models\HomeValore;
 
 use App\Models\UserContent;
+use App\Models\AddBanner;
 use App\Models\AmistadContent;
 use App\Models\User;
-
+use App\Models\Service;
+use App\Models\OwnedService;
 class IndexController extends Controller
 {
     public function index(){
@@ -35,8 +37,14 @@ class IndexController extends Controller
             $publicaciones = UserContent::whereIn('user_id', $amigosIds)
             ->where('user_id', '!=', auth()->id())                
             ->get();
+
+            $ownedServices = OwnedService::where('user_id', Auth()->user()->id)->pluck('service_id');
+
+            $servicios = Service::where('user_id', '!=', Auth()->user()->id)->whereNotIn('id', $ownedServices)->get();
+
+            $adds = AddBanner::all();
     
-            return view('home', compact("publicaciones"));
+            return view('home', compact("publicaciones", 'servicios', 'adds'));
         }
     }
 

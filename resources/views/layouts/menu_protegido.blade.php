@@ -6,7 +6,6 @@
 
 @endphp
 
-{{-- Este es el bucle más importante --}}
 @foreach ($items as $item)
     @php
 
@@ -23,7 +22,8 @@
 
         // With Children Attributes
         if (!$originalItem->children->isEmpty()) {
-            $linkAttributes = 'class="nav-link link text-white dropdown-toggle display-4" data-toggle="dropdown-submenu" aria-expanded="false"';
+            $linkAttributes =
+                'class="nav-link link text-white dropdown-toggle display-4" data-toggle="dropdown-submenu" aria-expanded="false"';
             $caret = '<span class="caret"></span>';
 
             if (url($item->link()) == url()->current()) {
@@ -120,28 +120,30 @@
                 ->orderBy('created_at', 'desc')
                 ->first();
 
-                $otroUsuarioId = null;
+            $otroUsuarioId = null;
 
-                if ($ultimoMensaje) {
-                    $otroUsuarioId = ($ultimoMensaje->user_id == $loggedInUserId) ? $ultimoMensaje->foreign_id : $ultimoMensaje->user_id;
-                }
+            if ($ultimoMensaje) {
+                $otroUsuarioId =
+                    $ultimoMensaje->user_id == $loggedInUserId ? $ultimoMensaje->foreign_id : $ultimoMensaje->user_id;
+            }
 
         @endphp
-        
+
         <li class="nav-02__item">
 
 
             <div class="buttons-set">
                 <ul class="buttons-set__list">
                     <li class="buttons-set__item">
-                        @if($ultimoMensaje == null)
-                        <a class="button button--empty button--white-outline" href="{{ route('amigos') }}">
-                            <span class="button__text">Chats</span>
-                        </a>
+                        @if ($ultimoMensaje == null)
+                            <a class="button button--empty button--white-outline" href="{{ route('amigos') }}">
+                                <span class="button__text">Chats</span>
+                            </a>
                         @else
-                        <a class="button button--empty button--white-outline" href="{{ route('chat', $otroUsuarioId) }}">
-                            <span class="button__text">Chats</span>
-                        </a>
+                            <a class="button button--empty button--white-outline"
+                                href="{{ route('chat', $otroUsuarioId) }}">
+                                <span class="button__text">Chats</span>
+                            </a>
                         @endif
                     </li>
                 </ul>
@@ -187,6 +189,51 @@
             <div class="buttons-set">
                 <ul class="buttons-set__list">
                     <li class="buttons-set__item">
+                        <a class="button button--empty button--white-outline" href="{{ route('subir_servicio') }}">
+                            <span class="button__text">Subir servicio</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        </li>
+
+        <li class="nav-02__item">
+
+
+            <div class="buttons-set">
+                <ul class="buttons-set__list">
+                    <li class="buttons-set__item">
+                        <a class="button button--empty button--white-outline" href="{{ route('show.services') }}">
+                            <span class="button__text">Servicios</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        </li>
+
+        <li class="nav-02__item">
+
+
+            <div class="buttons-set">
+                <ul class="buttons-set__list">
+                    <li class="buttons-set__item">
+                        <a class="button button--empty button--white-outline" href="{{ route('show.myServices') }}">
+                            <span class="button__text">Mis servicios</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        </li>
+
+        <li class="nav-02__item">
+
+
+            <div class="buttons-set">
+                <ul class="buttons-set__list">
+                    <li class="buttons-set__item">
                         <a class="button button--empty button--white-outline" href="{{ route('logout') }}"
                             onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
@@ -206,59 +253,60 @@
 <style>
     /* Estilo para el dropdown */
     .nav-02__item:hover .dropdown__list {
-        display: block; 
+        display: block;
     }
 
     .dropdown__list {
-        display: none; 
+        display: none;
         position: absolute;
-        background-color: #2d2196; 
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
+        background-color: #2d2196;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         z-index: 1;
-        padding: 10px; 
-        list-style: none; 
-        margin: 0; 
+        padding: 10px;
+        list-style: none;
+        margin: 0;
     }
 
     .dropdown__list .nav-02__item {
-        display: block; 
-        margin-bottom: 5px; 
-        text-align: center; 
+        display: block;
+        margin-bottom: 5px;
+        text-align: center;
     }
 
     .dropdown__list .buttons-set {
-        margin: 0; 
+        margin: 0;
     }
 
     .dropdown__list .buttons-set__list {
-        padding: 0; 
-        list-style: none; 
-        margin: 0; 
+        padding: 0;
+        list-style: none;
+        margin: 0;
     }
 
     .dropdown__list .buttons-set__item {
-        display: block; 
-        text-align: center; 
-        margin-bottom: 5px; 
+        display: block;
+        text-align: center;
+        margin-bottom: 5px;
     }
 
     .dropdown__list .button {
-        display: block; 
-        margin-bottom: 5px; 
-        text-align: center; 
-        line-height: 1.5; 
+        display: block;
+        margin-bottom: 5px;
+        text-align: center;
+        line-height: 1.5;
     }
 
     .dropdown__list a {
-        display: block; 
-        margin-bottom: 5px; 
-        color: white; 
-        text-decoration: none; 
-        text-align: center; 
-        line-height: 1.5; 
-    
+        display: block;
+        margin-bottom: 5px;
+        color: white;
+        text-decoration: none;
+        text-align: center;
+        line-height: 1.5;
+
     }
-    .buttons-set__list{
+
+    .buttons-set__list {
         display: flex;
         justify-content: center;
     }

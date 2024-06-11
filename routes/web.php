@@ -130,3 +130,26 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/chat/{userId}/messages', 'ChatController@getMessages')->name('chat.messages');
     Route::post('/chat/{userId}/sends', 'ChatController@sendMessage')->name('chat.send');
 });
+
+
+//COMENTARIOS Y LIKES
+Route::post('/send_comment', 'UserContentController@comment')->name('post.comment');
+Route::post('/like-post', 'UserContentController@like')->name('like.post');
+Route::post('/unlike-post', 'UserContentController@unlike')->name('unlike.post');
+
+//FORO 
+Route::get('/foro', 'ForoContentController@index')->name('foro');
+Route::get('/subforo/{id}', 'ForoContentController@subforo')->name('subforo');
+
+
+//SERVICIOS
+Route::get('/subir_servicio','ServicioController@index')->name('subir_servicio');
+Route::post('/upload_servicio','ServicioController@store')->name('upload_servicio');
+Route::get('/servicios', 'ServicioController@show')->name('show.services');
+Route::get('/pagos/{id}', 'ServicioController@mostrarFormularioPago')->name('pagos-servicios');
+Route::post('/confirmar-pago', 'ServicioController@confirmarPagoAcademia')->name('confirmar-pago');
+Route::get('/my_services', 'ServicioController@myServices')->name('show.myServices');
+Route::get('/servicio/{id}', 'ServicioController@showSingle')->name('show.single.service');
+Route::post('/submit-rating', 'OwnedServicesController@submitRating')->name('submit.rating');
+
+

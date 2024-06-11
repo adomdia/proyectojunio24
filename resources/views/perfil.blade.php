@@ -1,65 +1,72 @@
 @extends('layouts.app')
 @section('last_head')
-<style>
-.image-container {
-    position: relative;
-    display: inline-block;
-}
+    <style>
+        .image-container {
+            position: relative;
+            display: inline-block;
+        }
 
-.image-mask {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: black;
-    opacity: 0.6; 
-}
+        .image-mask {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            opacity: 0.6;
+        }
 
-.image-controls {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1;
-    color: white;
-}
+        .image-controls {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            color: white;
+        }
 
-.image-controls button {
-    background-color: transparent;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    margin: 5px;
-    cursor: pointer;
-}
+        .image-controls button {
+            background-color: transparent;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            margin: 5px;
+            cursor: pointer;
+        }
 
-.image-container img {
-    display: block;
-    max-width: 100%;
-    height: auto;
-}
+        .image-container img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
 
-.audio-container {
-    position: relative;
-    display: inline-block;
-}
+        .audio-container {
+            position: relative;
+            display: inline-block;
+        }
 
-.audio-container img {
-    display: block;
-    max-width: 100%;
-    height: auto;
-}
+        .audio-container img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
 
-.audio-container audio {
-    position: absolute;
-    top: 90%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1;
-    width: 100%;
-}
-</style>
+        .audio-container audio {
+            position: absolute;
+            top: 90%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            width: 100%;
+        }
+
+
+
+        .liked_button {
+            background-color: #dc3545;
+            color: #fff;
+        }
+    </style>
 @endsection
 @section('content')
     <div class="bloc d-bloc" id="bloc-35" style="margin-top: 135px">
@@ -157,6 +164,7 @@
                     <div class="card mb-3">
                         <div class="card-body">
                             <p class="card-text">{{ $publicacion->title }}</p>
+                            <div class="d-flex justify-content-center">
                             @if (in_array(strtolower(str_replace('"}]', '', pathinfo($publicacion->file, PATHINFO_EXTENSION))), [
                                     'jpg',
                                     'jpeg',
@@ -188,28 +196,72 @@
                                     </audio>
                                 </div>
                             @endif
+                            </div>
+                            <div class="text-right mt-3">
+                            @php
+                                $like = App\Models\LikePostsContent::where('post_id', $publicacion->id)->where('user_id', auth()->id())->first();
+                            @endphp
+                            
+                            @if($like)
+                                <button class="btn btn-outline-danger liked_button" data-post-id="{{ $publicacion->id }}">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                                <button class="btn btn-outline-danger like_button" data-post-id="{{ $publicacion->id }}" style="display: none;">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            @else
+                               
+                                <button class="btn btn-outline-danger like_button" data-post-id="{{ $publicacion->id }}">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                                <button class="btn btn-outline-danger liked_button" data-post-id="{{ $publicacion->id }}" style="display: none;">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            @endif
+                            </div>
                             {{-- <img src="{{Voyager::image(json_decode($publicacion->file)[0]->download_link)}}" class="img-fluid" alt="Imagen de publicación"> --}}
                             <div class="mt-3">
                                 <h6>Comentarios:</h6>
-                                <div class="media mb-2 comment-div">
-                                    <div class="title-comment-home">
-                                        <img src="{{ asset('images/user.png') }}" style="max-width:50px"
-                                            class="card-img-top" alt="Imagen de usuario">
-                                        <h6 class="mt-0" style="color:black; margin:20px 0 0 20px"><strong>Nombre de
-                                                Usuario:</strong></h6>
-                                    </div>
-                                    <div class="media-body comment-div">
-                                        <p>Comentario de ejemplo. </p>
+                                @php
+                                    $comentarios = App\Models\CommentsPostsContent::where('post_id', $publicacion->id)->get();
+                                @endphp
+                                <div class="media mb-2 comment-div commentsContainer"
+                                    data-post-id="{{ $publicacion->id }}">
+                                    @foreach ($comentarios as $comentario)
+                                        @php
+                                            $user = App\Models\user::where('id', $comentario->user_id)->first();
+                                        @endphp
+                                        <div class="title-comment-home">
+                                            <img src="{{ Voyager::image($user->avatar) }}" style="max-width:50px"
+                                                class="card-img-top" alt="Imagen de usuario">
+                                            <h6 class="mt-0" style="color:black; margin:20px 0 0 20px">
+                                                <strong>{{ $user->name }}:</strong>
+                                            </h6>
+                                        </div>
+                                        <div class="media-body comment-div">
+                                            <p>{{ $comentario->text }} </p>
+                                        </div>
+                                    @endforeach
+                                </div>
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <form class="send-comment-form d-flex justify-content-center"
+                                                data-post-id="{{ $publicacion->id }}" class="d-flex">
+                                                @csrf
+                                                <input hidden name="post_id" value="{{ $publicacion->id }}"
+                                                    class="flex-grow-1 mr-2">
+                                                <input type="text" class="form-control flex-grow-1 mr-2 message-input"
+                                                    name="content" placeholder="Escribe comentario"
+                                                    aria-describedby="button-addon3">
+                                                <button class="btn btn-outline-secondary" type="submit"
+                                                    id="button-addon3">Comentar</button>
+                                            </form>
+
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Escribe un comentario"
-                                        aria-describedby="button-addon3">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-outline-secondary" type="button"
-                                            id="button-addon3">Comentar</button>
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -250,6 +302,8 @@
             var removeForm = '#removeForm_' + userId
 
 
+
+            //AMISTAD Y BLOQUEO
             $.ajax({
                 type: 'GET',
                 url: '{{ url('/get_friendship_status/') }}/' + userId,
@@ -280,14 +334,13 @@
                 }
             });
 
-            // Consultar si son amigos antes de mostrar los botones de solicitud
+
             $.ajax({
                 type: 'GET',
                 url: '{{ url('/are_friends/') }}/' + userId,
                 success: function(response) {
                     console.log(response);
 
-                    // Mostrar o ocultar botones de solicitud según el estado de amistad
                     if (response.areFriends) {
                         $(formId).hide();
                         $(cancelarFormId).hide();
@@ -305,7 +358,6 @@
                 }
             });
 
-            // Manejar clic en el botón de enviar solicitud
             $('.enviar-solicitud').click(function() {
                 var button = $(this);
                 $.ajax({
@@ -323,7 +375,6 @@
                 });
             });
 
-            // Manejar clic en el botón de cancelar solicitud
             $('.cancelar-solicitud').click(function() {
                 var button = $(this);
                 $.ajax({
@@ -341,7 +392,7 @@
                 });
             });
 
-            // Manejar clic en el botón de bloquear usuario
+
             $('.bloquear-usuario').click(function() {
                 var formId = bloqueoFormId;
                 $.ajax({
@@ -359,7 +410,7 @@
                 });
             });
 
-            // Manejar clic en el botón de desbloquear usuario
+
             $('.desbloquear-usuario').click(function() {
                 var button = $(this);
                 $.ajax({
@@ -393,6 +444,87 @@
                         console.log(error);
                     }
                 });
+            });
+        });
+
+        //COMENTARIOS
+        $('.send-comment-form').submit(function(e) {
+            e.preventDefault();
+
+            var formData = $(this).serialize();
+            var postId = $(this).data('post-id');
+
+            $.ajax({
+                type: 'POST',
+                url: '{{ url('/send_comment/') }}',
+                data: formData,
+                success: function(response) {
+                    console.log(response);
+                    $('.message-input').val('');
+
+                    var imagen = '{!! Voyager::image("' + response.user.avatar + '") !!}';
+
+                    var messageContent = '<div class="title-comment-home"> <img src="' + imagen +
+                        '" \n' +
+                        'style="max-width:50px" class="card-img-top" alt="Imagen de usuario"> \n' +
+                        '<h6 class="mt-0" style="color:black; margin:20px 0 0 20px"><strong>' + response
+                        .user.name + ':</strong></h6> \n' +
+                        '</div> \n' +
+                        '<div class="media-body comment-div">\n' +
+                        '<p> ' + response.comment.text + ' </p>\n' +
+                        '</div>';
+
+
+                    $('.commentsContainer[data-post-id="' + postId + '"]').append(messageContent);
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        });
+
+        //LIKES
+        $('.like_button').click(function() {
+            var postId = $(this).data('post-id');
+
+            $.ajax({
+                type: 'POST',
+                url: '{{ url('/like-post/') }}',
+                data: {
+                    post_id: postId,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    console.log(response)
+                    $('.like_button[data-post-id="' + postId + '"]').hide();
+                    $('.liked_button[data-post-id="' + postId + '"]').show();
+
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        });
+
+        $('.liked_button').click(function() {
+            var postId = $(this).data('post-id');
+
+            $.ajax({
+                type: 'POST',
+                url: '{{ url('/unlike-post/') }}', 
+                data: {
+                    post_id: postId,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+
+                    $('.liked_button[data-post-id="' + postId + '"]').hide();
+                    $('.like_button[data-post-id="' + postId + '"]').show();
+
+                },
+                error: function(error) {
+                    console.log(error);
+                }
             });
         });
     </script>

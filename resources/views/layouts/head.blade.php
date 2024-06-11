@@ -29,4 +29,5 @@
             cookieconsent.run({"notice_banner_type":"headline","consent_type":"implied","palette":"light","language":"es","website_name":"Nombre Web","cookies_policy_url":"http://www.webwebgi.com/aviso-legal"});
         });
     </script>
+
 </head>

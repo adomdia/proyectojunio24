@@ -42,6 +42,7 @@ class UserController extends Controller
             'nick' => 'string|max:155',
             'email' => 'nullable|string|email|max:255|unique:users,email,'.Auth::id(),
             'password' => 'nullable|max:255|confirmed',
+            'user_dni' => 'nullable|string|max:255',
         ]);
         if ($validator->fails()) {
             return response()->json(['status' => 'error_validación', 'message' => 'Los datos introducidos no son válidos.'],500);
@@ -72,6 +73,9 @@ class UserController extends Controller
                 $myuser->name = $request->nick;
                 if($request->email != null){
                     $myuser->email = $request->email; 
+                } 
+                if($request->user_dni != null){
+                    $myuser->user_dni = $request->user_dni; 
                 }
                 $myuser->save();
                 

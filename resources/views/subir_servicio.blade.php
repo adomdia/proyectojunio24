@@ -1,12 +1,13 @@
 @extends('layouts.app')
-
+@section('last_head')
+    {{--Aquí estilos solo para esta página--}}
+@endsection
 @section('content')
 
 <div class="page-component__bg_image_box    bg-white-color  first_component  " id="text-07-401621">
 
-    <div class="page-component__wrapper" style="z-index: 11;padding-top:150px;padding-bottom:70px;display:flex;justify-content:center">
+    <div class="page-component__wrapper" style="z-index: 11;padding-top:150px;padding-bottom:70px;">
 
-        <h2 style="color:black">Actualice su perfil</h2>
 
     </div>
     <div class="page-component__bg_image_box    bg-white-color  first_component  " id="cta_form-01-207171" style="background-color: #2d2196;">
@@ -31,7 +32,7 @@
                             <div class="title-box title-box--center">
 
 
-                                <h1 class="heading ">Editar Perfil</h1>
+                                <h1 class="heading ">Subir un nuevo producto</h1>
 
 
 
@@ -40,88 +41,62 @@
 
 
                         <div class="cta_form-01__form_box">
-                            {{-- @dd($user) --}}
 
-                            <form class="form  form--centered-button" action="{{route('edit_profile')}}" method="POST" enctype='multipart/form-data'
+
+                            <form class="form  form--centered-button" action="{{route('upload_servicio')}}" method="POST" enctype="multipart/form-data"
                                 data-sheet-id="">
                                 @csrf
 
                                 <div class="form__inputs">
 
-                                    <div class="form__input  form__input--full">
-                                        <div class="form__input__label_box">
-                                            <label class="button js-submit-button" type="submit" style="background-color:#2d2196;color:#fff" for="EMAIL-85500-0" onclick="document.getElementById('input_avatar').click()">
-                                                <span
-                                                class="button__text">Actualizar la imagen de perfil</span>
-                                            </label>
-                                        </div>
-                                        <input id="input_avatar" class="text-input js-form-input" type="file" id="OTHER3-77029-7" name="avatar" placeholder="" style="display:none" />
-                                    </div>
-
-
 
 
                                     <div class="form__input  form__input--full  ">
                                         <div class="form__input__label_box">
-                                            <label class="form__input__label " for="FNAME-85500-1">
-                                                Nick
-                                            </label>
-                                        </div>
-                                        <input class="text-input js-form-input   " type="text" id="FNAME-85500-1"
-                                            name="nick" placeholder="Escriba su nombre"  value="{{isset($user->name) ? $user->name : 'Introduzca su nombre...'}}"/>
-                                    </div>
-
-                                    <div class="form__input  form__input--full  ">
-                                        <div class="form__input__label_box">
-                                            <label class="form__input__label " for="FNAME-85500-1">
+                                            <label class="form__input__label " for="EMAIL-85500-0">
                                                 <span class="form__input__label_asterix"
                                                     title="This field is required.">*</span>
-
-
-                                                Email
+                                                Título
                                             </label>
                                         </div>
-                                        <input class="text-input js-form-input   " type="text" id="FNAME-85500-1"
-                                            name="email" placeholder="Escriba su nuevo email" />
+                                        <input class="text-input js-form-input   " type="text" id="EMAIL-85500-0"
+                                            name="title" required placeholder="Escriba un título" />
                                     </div>
 
-
-
-                                    <div class="form__input  form__input--full   ">
+                                    <div class="form__input  form__input--full">
                                         <div class="form__input__label_box">
-                                            <label class="form__input__label " for="OTHER-85500-2">
-                                                Nueva contraseña
+                                            <label class="button js-submit-button" type="submit" style="background-color:#2d2196;color:#fff" for="EMAIL-85500-0" onclick="document.getElementById('input_img').click()">
+                                                <span
+                                                class="button__text">Añadir contenido multimedia</span>
                                             </label>
                                         </div>
-                                        <input class="text-input js-form-input" type="password"  id="OTHER-85500-2"
-                                            name="password" />
+                                        <input id="input_img" class="text-input js-form-input" type="file" id="OTHER3-77029-7" name="img[]" multiple placeholder="" style="display:none" />
                                     </div>
 
 
-
-                                    <div class="form__input  form__input--full   ">
+                                    <div class="form__input  form__input--full  ">
                                         <div class="form__input__label_box">
-                                            <label class="form__input__label " for="OTHER-85500-2">
-                                                Confirmar nueva contraseña
+                                            <label class="form__input__label " for="EMAIL-85500-0">
+                                                <span class="form__input__label_asterix"
+                                                    title="This field is required.">*</span>
+                                                Texto
                                             </label>
                                         </div>
-                                        <input class="text-input js-form-input   " type="password"  id="OTHER-85500-2"
-                                            name="password_confirmation" />
+                                        <textarea class="text-input js-form-input" type="text" id="EMAIL-85500-0"
+                                            name="text" required>
+                                        </textarea>
                                     </div>
 
-                                    <div class="form__input  form__input--full   ">
+                                    <div class="form__input  form__input--full  ">
                                         <div class="form__input__label_box">
-                                            <label class="form__input__label " for="OTHER-85500-2">
-                                                DNI
-                                                <span class="form__input__label_asterix" style="font-size:1em"
-                                                title="Needed">Necenario para los datos de facturación</span>
+                                            <label class="form__input__label " for="EMAIL-85500-0">
+                                                <span class="form__input__label_asterix"
+                                                    title="This field is required.">*</span>
+                                                Precio
                                             </label>
                                         </div>
-                                        <input class="text-input js-form-input   " type="text"  id="OTHER-85500-2"
-                                            name="user_dni" />
+                                        <input class="text-input js-form-input" type="number" id="price-input" name="price" required placeholder="Escriba un precio" step="0.01" min="0" />
                                     </div>
-
-
 
                                     <div class="form__button  form__button--full ">
 
@@ -222,13 +197,9 @@
 
         </div>
     </div>
-    <script>
-        var aviso = document.querySelector('.close')
-        console.log(aviso);
 
-        aviso.addEventListener('click', function() {
-            console.log('entra');
-          aviso.parentNode.style.display = "none"
-        });
-    </script>
+
+@endsection
+@section('javascript')
+    {{-- Aquí scripts solo para esta página--}}
 @endsection

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c75edd0ab9bc97ae08803d800f9fcd07",
+    "content-hash": "20de21488b7b8e3696f0dc776db7c2d3",
     "packages": [
         {
             "name": "arrilot/laravel-widgets",
@@ -180,6 +180,10 @@
                 "laravel",
                 "pdf"
             ],
+            "support": {
+                "issues": "https://github.com/barryvdh/laravel-dompdf/issues",
+                "source": "https://github.com/barryvdh/laravel-dompdf/tree/v1.0.2"
+            },
             "funding": [
                 {
                     "url": "https://fruitcake.nl",
@@ -5318,6 +5322,10 @@
                 "payment processing",
                 "stripe"
             ],
+            "support": {
+                "issues": "https://github.com/stripe/stripe-php/issues",
+                "source": "https://github.com/stripe/stripe-php/tree/v7.128.0"
+            },
             "time": "2022-05-05T17:18:02+00:00"
         },
         {
@@ -10188,5 +10196,5 @@
         "php": "^8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "plugin-api-version": "2.6.0"
 }
